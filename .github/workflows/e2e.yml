@@ -240,10 +240,9 @@ jobs:
     # Step 4: Configure litmusctl 
     - name: Configure Litmusctl
       run: |
-        litmusctl configure --endpoint http://34.16.124.102:9091/ \
+        litmusctl config set-account  --endpoint http://34.16.124.102:9091/ \
           --username "${{ secrets.LITMUS_USERNAME }}" \
-          --password "${{ secrets.LITMUS_PASSWORD }}" \
-          --project-id "YOUR_PROJECT_ID" 
+          --password "${{ secrets.LITMUS_PASSWORD }}"
 
     # Step 5: Run the Litmus Chaos experiment
     - name: Run Chaos Experiment
