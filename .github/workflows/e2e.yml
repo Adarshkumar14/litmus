@@ -250,7 +250,7 @@ jobs:
     # Step 6: Run the Bash script to monitor the experiment run
     - name: Monitor Experiment Run and Check Resiliency Score
       run: |
-        # Assuming the Bash script is stored in your repo as `check_experiment.sh`
+        sleep 10
         # Extract the first experimentRunID
         experimentRunID=$(litmusctl get chaos-experiment-runs  --project-id="527bd8e4-525d-495a-8d7a-1d31124b738d" --experiment-id="8f39f4ac-2d03-4039-bfc9-49b5c35bf8ee"  -o json | jq '.listExperimentRun.experimentRuns[0].experimentRunID')
 
@@ -264,7 +264,7 @@ jobs:
 
         # Wait until the phase becomes 'Completed'
         while true; do
-          phase=$(./litmusctl get chaos-experiment-runs  --project-id="527bd8e4-525d-495a-8d7a-1d31124b738d" --experiment-id="8f39f4ac-2d03-4039-bfc9-49b5c35bf8ee"  -o json | jq -r '.listExperimentRun.experimentRuns[0].phase')
+          phase=$(litmusctl get chaos-experiment-runs  --project-id="527bd8e4-525d-495a-8d7a-1d31124b738d" --experiment-id="8f39f4ac-2d03-4039-bfc9-49b5c35bf8ee"  -o json | jq -r '.listExperimentRun.experimentRuns[0].phase')
           echo "Current Phase: $phase"
           
           if [ "$phase" == "Completed" ]; then
@@ -276,7 +276,7 @@ jobs:
         done
 
         # Check resiliencyScore after phase is "Completed"
-        resiliencyScore=$(./litmusctl get chaos-experiment-runs  --project-id="527bd8e4-525d-495a-8d7a-1d31124b738d" --experiment-id="8f39f4ac-2d03-4039-bfc9-49b5c35bf8ee"  -o json  | jq -r '.listExperimentRun.experimentRuns[0].resiliencyScore')
+        resiliencyScore=$(litmusctl get chaos-experiment-runs  --project-id="527bd8e4-525d-495a-8d7a-1d31124b738d" --experiment-id="8f39f4ac-2d03-4039-bfc9-49b5c35bf8ee"  -o json  | jq -r '.listExperimentRun.experimentRuns[0].resiliencyScore')
         echo "Resiliency Score: $resiliencyScore"
 
         # Determine pass/fail based on resiliencyScore
