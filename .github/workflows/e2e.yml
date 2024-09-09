@@ -232,7 +232,8 @@ jobs:
     # Step 3: Download and install litmusctl
     - name: Install Litmusctl
       run: |
-        curl -Lo litmusctl https://github.com/litmuschaos/litmusctl/releases/download/v1.8.0/litmusctl-linux-amd64
+        curl -Lo https://litmusctl-production-bucket.s3.amazonaws.com/litmusctl-linux-amd64-1.8.0.tar.gz
+        tar -zxvf litmusctl-linux-amd64-1.8.0.tar.gz
         chmod +x litmusctl
         sudo mv litmusctl /usr/local/bin/litmusctl
 
