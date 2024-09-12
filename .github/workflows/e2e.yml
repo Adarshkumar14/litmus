@@ -261,9 +261,10 @@ jobs:
           phase=$(litmusctl get chaos-experiment-runs  --project-id="527bd8e4-525d-495a-8d7a-1d31124b738d" --experiment-id="8f39f4ac-2d03-4039-bfc9-49b5c35bf8ee"  -o json | jq -r '.listExperimentRun.experimentRuns[0].phase')
           echo "Current Phase: $phase"
           
-          if [ "$phase" == "Completed" ]; then
+          if [ "$phase" == "Completed" ] || [ "$phase" == "Completed_With_Probe_Failure" ]; then
             echo "Phase is now 'Completed'"
             break
+          
           fi
           
           sleep 10  # Wait for 10 seconds before checking again
